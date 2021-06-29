@@ -1,29 +1,17 @@
-import React, { Component } from "react";
-import {observable} from "mobx";
-// import { observer } from 'mobx-react';
+import React from "react";
+import { observer } from "mobx-react";
 
-class Counter extends Component {
-  @observable
-  counter = 0;
-
-  onIncrement = () => {
-    this.counter++
-  };
-
-  onDecrement = () => {
-    this.counter--
-  };
-
-  render() {
-    console.log("render");
-    return (
-      <div>
-        Counter: {this.counter}
-        <button onClick={this.onIncrement}>Increment</button>
-        <button onClick={this.onDecrement}>Decrement</button>
-      </div>
-    );
-  }
-}
+const Counter = observer(({ counterStore }) => {
+  console.log(counterStore);
+  return (
+    <div>
+      Counter: {counterStore.counter}
+      <button onClick={counterStore.onIncrement}>Increment</button>
+      <button onClick={counterStore.onDecrement}>Decrement</button>
+      <hr/>
+      {counterStore.getResult()}
+    </div>
+  );
+});
 
 export default Counter;
