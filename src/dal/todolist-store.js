@@ -67,10 +67,8 @@ export default class TodoList {
     }
 
     if (evt.which === 13) {
-      const result = this.creatingFetch();
+      this.todos.push(new Todo(this.todo, Math.random()));
 
-
-      this.todos.push(new Todo(this.todo, data.id));
       this.todo = "";
     }
   };
