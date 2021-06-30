@@ -1,14 +1,14 @@
 import { makeAutoObservable } from "mobx";
 
 class Todo {
-  id = Math.random();
   title;
   isFinished = false;
 
-  constructor(title) {
+  constructor(title, id) {
     makeAutoObservable(this);
 
     this.title = title;
+    this.id = id;
   }
 }
 

@@ -1,34 +1,74 @@
 {
   "todos": [
     {
-      "id": 1,
-      "name": "configure server",
-      "isComplete": true
-    },
-    {
-      "id": 2,
-      "name": "start server",
-      "isComplete": true
-    },
-    {
       "id": 3,
-      "name": "Load data into app",
-      "isComplete": false
+      "title": "Load data into app",
+      "isFinished": false
     },
     {
       "id": 4,
-      "name": "Add records",
-      "isComplete": false
+      "title": "Add records",
+      "isFinished": false
     },
     {
       "id": 5,
-      "name": "update records",
-      "isComplete": false
+      "title": "update records",
+      "isFinished": false
     },
     {
-      "name": "New Todo",
-      "isComplete": true,
+      "title": "New Todo",
+      "isFinished": true,
       "id": 6
+    },
+    {
+      "title": "asdasdad",
+      "isFinished": false,
+      "id": 7
+    },
+    {
+      "title": "My deal",
+      "isFinished": false,
+      "id": 8
+    },
+    {
+      "title": "asdasd",
+      "isFinished": false,
+      "id": 9
+    },
+    {
+      "title": "asdasd",
+      "isFinished": false,
+      "id": 10
+    },
+    {
+      "title": "asd",
+      "isFinished": false,
+      "id": 11
+    },
+    {
+      "title": "asdasdasd",
+      "isFinished": false,
+      "id": 12
+    },
+    {
+      "title": "asdasd",
+      "isFinished": false,
+      "id": 13
+    },
+    {
+      "title": "asdasd",
+      "isFinished": false,
+      "id": 14
+    },
+    {
+      "title": "asdsad",
+      "isFinished": false,
+      "id": 15
+    },
+    {
+      "title": "aasad",
+      "isFinished": false,
+      "id": 16
     }
   ]
 }

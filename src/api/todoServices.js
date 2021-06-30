@@ -4,14 +4,14 @@ export const getTodos = () => {
   return fetch(baseUrl).then((res) => res.json());
 };
 
-export const createTodo = (name) => {
+export const createTodo = (title) => {
   return fetch(baseUrl, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name: name, isComplete: false }),
+    body: JSON.stringify({ title: title, isFinished: false }),
   }).then((res) => res.json());
 };
 

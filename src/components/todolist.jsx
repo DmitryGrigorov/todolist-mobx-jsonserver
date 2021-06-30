@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { observer } from "mobx-react";
 import TodoView from "./todo";
 
@@ -14,8 +14,13 @@ const TodoListView = observer((props) => {
       onChangeInput,
       onKeyPressForInput,
       onDeleteCurrentItem,
+      getTodos
     },
   } = props;
+
+  useEffect(() => {
+    getTodos()
+  }, [])
 
   return (
     <div>
