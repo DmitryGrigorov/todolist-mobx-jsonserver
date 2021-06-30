@@ -17,7 +17,7 @@ class CounterStore {
 
   @computed
   getResult() {
-    return 20 + 20
+    return 20 + 20;
   }
 }
 

@@ -8,7 +8,7 @@ const Counter = observer(({ counterStore }) => {
       Counter: {counterStore.counter}
       <button onClick={counterStore.onIncrement}>Increment</button>
       <button onClick={counterStore.onDecrement}>Decrement</button>
-      <hr/>
+      <hr />
       {counterStore.getResult()}
     </div>
   );
