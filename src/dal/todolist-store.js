@@ -1,36 +1,70 @@
-import {computed, makeAutoObservable, action, flow} from "mobx";
+import { computed, makeAutoObservable, action, flow, observable } from "mobx";
 
 import {
   getTodos as getTodosAPI,
   createTodo as createTodoAPI,
-  destroyTodo as destroyTodoAPI
-} from '../api/todoServices'
+  destroyTodo as destroyTodoAPI,
+  updateTodo as updateTodoAPI,
+} from "../api/todoServices";
 
 import Todo from "./todo-store";
 
 export default class TodoList {
+  @observable isLoading = true;
+  @observable todo = "";
+  @observable todos = [];
+
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      getTodos: flow.bound,
+      createTodo: flow.bound,
+      destroyTodoAction: flow.bound,
+      updateTodo: flow.bound,
+      deleteTodoLast: flow.bound,
+      unfinishedTodoCount: computed,
+    });
   }
 
-  todo = "";
-  todos = [];
-
-  @computed unfinishedTodoCount() {
+  get unfinishedTodoCount() {
+    console.log(this.todos);
     return this.todos.filter((todo) => !todo.isFinished).length;
   }
 
-  @action
-  getTodos = () => {
-    getTodosAPI().then((data) => {
-      console.log('getTodos', data);
-      this.todos = data;
-    })
+  *getTodos() {
+    this.isLoading = true;
+
+    const result = yield getTodosAPI();
+    this.todos = result;
+
+    this.isLoading = false;
   }
 
-  @action
-  destroyTodoAction = (id) => {
-    destroyTodoAPI(id)
+  *destroyTodoAction(evt) {
+    this.isLoading = true;
+
+    const id = Number(evt.target.dataset.id);
+    yield destroyTodoAPI(id);
+    this.todos = yield getTodosAPI();
+
+    this.isLoading = false;
+  }
+
+  *updateTodo(todo) {
+    this.isLoading = true;
+
+    yield updateTodoAPI(todo);
+    this.todos = yield getTodosAPI();
+
+    this.isLoading = false;
+  }
+
+  *deleteTodoLast() {
+    this.isLoading = true;
+
+    yield destroyTodoAPI(this.todos[this.todos.length - 1].id);
+    this.todos = yield getTodosAPI();
+
+    this.isLoading = false;
   }
 
   addTodoLast = () => {
@@ -41,10 +75,6 @@ export default class TodoList {
     this.todos.unshift(new Todo("First Default Text"));
   };
 
-  deleteTodoLast = () => {
-    this.todos.shift();
-  };
-
   deleteTodoFirst = () => {
     this.todos.pop();
   };
@@ -53,31 +83,24 @@ export default class TodoList {
     this.todo = evt.target.value;
   };
 
-  creatingFetch = flow(function* (store) {
-    const result = yield createTodoAPI(store.todo)
+  *createTodo() {
+    this.isLoading = true;
 
-    return result
-  })
+    yield createTodoAPI(this.todo);
+    this.todos = yield getTodosAPI();
+    this.todo = "";
+
+    this.isLoading = false;
+  }
 
   @action
   onKeyPressForInput = (evt) => {
-
     if (this.todo === "") {
       return;
     }
 
     if (evt.which === 13) {
-      this.todos.push(new Todo(this.todo, Math.random()));
-
-      this.todo = "";
+      this.createTodo();
     }
-  };
-
-  onDeleteCurrentItem = (evt) => {
-    const id = Number(evt.target.dataset.id);
-    const foundIndex = this.todos.findIndex((el) => el.id === id);
-    this.todos.splice(foundIndex, 1);
-
-    this.destroyTodoAction(id);
   };
 }

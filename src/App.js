@@ -7,7 +7,6 @@ import TodoListView from "./components/todolist";
 
 const store = new TodoList();
 
-
 function App() {
   return (
     <div className="App">
