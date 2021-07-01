@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { observer } from "mobx-react";
+import React, { useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import TodoView from "./todo";
 
 const TodoListView = observer((props) => {
@@ -13,14 +13,16 @@ const TodoListView = observer((props) => {
       deleteTodoFirst,
       onChangeInput,
       onKeyPressForInput,
-      onDeleteCurrentItem,
-      getTodos
+      destroyTodoAction,
+      getTodos,
+      updateTodo,
+      isLoading,
     },
   } = props;
 
   useEffect(() => {
-    getTodos()
-  }, [])
+    getTodos();
+  }, []);
 
   return (
     <div>
@@ -32,15 +34,20 @@ const TodoListView = observer((props) => {
       />
       <hr />
       <ul>
-        {todos.map((todo) => {
-          return (
-            <TodoView
-              key={todo.id}
-              todo={todo}
-              onDeleteCurrentItem={onDeleteCurrentItem}
-            />
-          );
-        })}
+        {isLoading ? (
+          <h1>Loading...</h1>
+        ) : (
+          todos?.map((todo) => {
+            return (
+              <TodoView
+                key={todo.id}
+                todo={todo}
+                onDeleteCurrentItem={destroyTodoAction}
+                updateTodo={updateTodo}
+              />
+            );
+          })
+        )}
       </ul>
 
       <hr />

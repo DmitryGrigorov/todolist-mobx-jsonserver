@@ -1,74 +1,19 @@
 {
   "todos": [
     {
-      "id": 3,
-      "title": "Load data into app",
-      "isFinished": false
-    },
-    {
-      "id": 4,
-      "title": "Add records",
-      "isFinished": false
-    },
-    {
-      "id": 5,
-      "title": "update records",
-      "isFinished": false
-    },
-    {
-      "title": "New Todo",
-      "isFinished": true,
-      "id": 6
-    },
-    {
-      "title": "asdasdad",
+      "title": "sdasdasd",
       "isFinished": false,
-      "id": 7
+      "id": 1
     },
     {
-      "title": "My deal",
+      "title": "12",
       "isFinished": false,
-      "id": 8
+      "id": 2
     },
     {
-      "title": "asdasd",
+      "title": "adasdl",
       "isFinished": false,
-      "id": 9
-    },
-    {
-      "title": "asdasd",
-      "isFinished": false,
-      "id": 10
-    },
-    {
-      "title": "asd",
-      "isFinished": false,
-      "id": 11
-    },
-    {
-      "title": "asdasdasd",
-      "isFinished": false,
-      "id": 12
-    },
-    {
-      "title": "asdasd",
-      "isFinished": false,
-      "id": 13
-    },
-    {
-      "title": "asdasd",
-      "isFinished": false,
-      "id": 14
-    },
-    {
-      "title": "asdsad",
-      "isFinished": false,
-      "id": 15
-    },
-    {
-      "title": "aasad",
-      "isFinished": false,
-      "id": 16
+      "id": 3
     }
   ]
 }
