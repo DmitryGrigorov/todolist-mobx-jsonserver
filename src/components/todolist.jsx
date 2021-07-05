@@ -17,6 +17,7 @@ const TodoListView = observer((props) => {
       getTodos,
       updateTodo,
       isLoading,
+      unfinishedTodoCount,
     },
   } = props;
 
@@ -56,6 +57,10 @@ const TodoListView = observer((props) => {
       <button onClick={addTodoFirst}>Add First</button>
       <button onClick={deleteTodoLast}>Delete Last</button>
       <button onClick={deleteTodoFirst}>Delete First</button>
+
+      <hr />
+
+      <h5>Unfinished deals: {unfinishedTodoCount}</h5>
     </div>
   );
 });

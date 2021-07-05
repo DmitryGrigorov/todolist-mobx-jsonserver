@@ -10,7 +10,10 @@ const TodoView = observer(({ todo, onDeleteCurrentItem, updateTodo }) => {
       <input
         type="checkbox"
         onChange={() => {
-          console.log(todo);
+          console.log({
+            ...todo,
+            isFinished: !todo.isFinished,
+          });
           updateTodo({
             ...todo,
             isFinished: !todo.isFinished,

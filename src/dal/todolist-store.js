@@ -7,7 +7,7 @@ import {
   updateTodo as updateTodoAPI,
 } from "../api/todoServices";
 
-import Todo from "./todo-store";
+//import Todo from "./todo-store";
 
 export default class TodoList {
   @observable isLoading = true;
@@ -20,11 +20,16 @@ export default class TodoList {
       createTodo: flow.bound,
       destroyTodoAction: flow.bound,
       updateTodo: flow.bound,
-      deleteTodoLast: flow.bound
+      addTodoLast: flow.bound,
+      addTodoFirst: flow.bound,
+      deleteTodoLast: flow.bound,
+      deleteTodoFirst: flow.bound,
+      unfinishedTodoCount: computed,
     });
   }
 
-  @computed unfinishedTodoCount() {
+  get unfinishedTodoCount() {
+    console.log(this.todos);
     return this.todos.filter((todo) => !todo.isFinished).length;
   }
 
@@ -32,8 +37,17 @@ export default class TodoList {
     this.isLoading = true;
 
     const result = yield getTodosAPI();
-
     this.todos = result;
+
+    this.isLoading = false;
+  }
+
+  *createTodo() {
+    this.isLoading = true;
+
+    yield createTodoAPI(this.todo);
+    this.todos = yield getTodosAPI();
+    this.todo = "";
 
     this.isLoading = false;
   }
@@ -66,7 +80,30 @@ export default class TodoList {
     this.isLoading = false;
   }
 
-  *createTodo() {
+  *deleteTodoFirst() {
+    this.isLoading = true;
+
+    yield destroyTodoAPI(this.todos[0].id);
+    this.todos = yield getTodosAPI();
+
+    this.isLoading = false;
+  }
+
+  *addTodoLast() {
+    this.isLoading = true;
+
+    yield createTodoAPI(this.todo);
+    this.todos = yield getTodosAPI();
+    this.todo = "";
+
+    //yield createTodoAPI(this.todo);
+
+    //this.todos.push(new Todo("Last Default Text"));
+
+    this.isLoading = false;
+  }
+
+  *addTodoFirst() {
     this.isLoading = true;
 
     yield createTodoAPI(this.todo);
@@ -74,19 +111,8 @@ export default class TodoList {
     this.todo = "";
 
     this.isLoading = false;
+    //this.todos.unshift(new Todo("First Default Text"));
   }
-
-  addTodoLast = () => {
-    this.todos.push(new Todo("Last Default Text"));
-  };
-
-  addTodoFirst = () => {
-    this.todos.unshift(new Todo("First Default Text"));
-  };
-
-  deleteTodoFirst = () => {
-    this.todos.pop();
-  };
 
   onChangeInput = (evt) => {
     this.todo = evt.target.value;
